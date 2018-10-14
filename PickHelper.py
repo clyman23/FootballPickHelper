@@ -9,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 import os
 import csv
+import datetime
 
 
 # https://www.pro-football-reference.com/years/2018/games.htm
@@ -16,6 +17,29 @@ import csv
 
 class FootballPool:
 
+    def __init__(self):
+        '''
+        want to get date and time to set what week it is
+        self.week = ?
+        print("It is week " + self.week)
+        '''
+        today = datetime.datetime.now()
+        
+    def WhatWeekIsIt(self):
+        today = datetime.datetime.now()
+        date = [today.year, today.month, today.day]
+        
+        return week
+    def MainMenu(self):
+        '''
+        User options:
+        1. List current picks
+        2. List matchups for this week
+        3. List odds for all matchups
+        4. List odds for a certain matchup
+        5. Pick a team for this week
+        '''
+    
     def UpdateTeams(self):
         team_list_address = 'http://www.alphalists.com/list/alphabetical-list-nfl-teams'
         page = requests.get(team_list_address)
@@ -75,6 +99,28 @@ class FootballPool:
                 file.write(i+'\n')
         print("New team = " + new_team)
         print("New team added to file")
+        
+    def TeamOdds(self):
+        pick = self.NewPick()
+        
+    def GetWeeklyMatchups(self, week):
+        file_location = os.getcwd()
+        file = r'\UpdatedMatchups.csv'
+        file_location = file_location + file
+        if os.path.isfile(file_location):
+            pass
+        else:
+            print("File does not exist")
+            return 0
+        data = []
+        with open(file_location) as csvfile:
+            contents = csv.DictReader(csvfile)
+            for row in contents:
+                if row['Week'] == week:
+                    data.append(row)
+        return data
+        
+        
     
     
     
