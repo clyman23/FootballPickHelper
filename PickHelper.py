@@ -23,11 +23,26 @@ class FootballPool:
         self.week = ?
         print("It is week " + self.week)
         '''
-        today = datetime.datetime.now()
+        self.week = self.WhatWeekIsIt()
         
     def WhatWeekIsIt(self):
-        today = datetime.datetime.now()
-        date = [today.year, today.month, today.day]
+        now = datetime.date.today()
+        date = [now.year, now.month, now.day]
+        file_location = os.getcwd()
+        file = r'\WeekDefinitions.csv'
+        file_location = file_location + file
+        weeks = []
+        with open(file_location) as csv_file:
+            contents = csv.DictReader(csv_file)
+            for row in contents:
+                weeks.append(row)
+        date = str(now.year)+str(now.month)+str(now.day)
+        for i in weeks:
+            if i['Start Date'] <= date and i['End Date'] >= date:
+                week = i['Week']
+                break
+            else:
+                week = "Error"
         
         return week
     def MainMenu(self):
