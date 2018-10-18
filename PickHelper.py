@@ -54,6 +54,24 @@ class FootballPool:
         4. List odds for a certain matchup
         5. Pick a team for this week
         '''
+        print("User options:")
+        print("1. List current picks")
+        print("2. List matchups for this week")
+        print("3. List odds for all matchups")
+        print("4. List odds for a certain matchup")
+        print("5. Pick a team for this week")
+        print("6. Exit")
+        selection = True
+        while selection:
+            selection = input("Choose an option: ")
+            if selection == '6':
+                print("Goodbye!")
+                selection = False
+            elif selection == '1':
+                chosen_teams = self.ChosenTeams()
+                print(chosen_teams)
+            else:
+                selection = False
     
     def UpdateTeams(self):
         team_list_address = 'http://www.alphalists.com/list/alphabetical-list-nfl-teams'
@@ -118,7 +136,8 @@ class FootballPool:
     def TeamOdds(self):
         pick = self.NewPick()
         
-    def GetWeeklyMatchups(self, week):
+    def GetWeeklyMatchups(self):
+        week = self.week
         file_location = os.getcwd()
         file = r'\UpdatedMatchups.csv'
         file_location = file_location + file
@@ -137,34 +156,11 @@ class FootballPool:
         
         
     
+pool = FootballPool()
+pool.MainMenu()
     
     
-    
 
 
 
-web_address = 'www.espn.com/nfl/scoreboard/_/year/2018/seasontype/2/week/'
-week = '1'
-
-
-
-chosen_teams = ['Minnesota Vikings', 'Los Angeles Chargers', 'Seattle Seahawks', 'Jacksonville Jaguars', 'New England Patriots']
-valid_teams = []
-for i in chosen_teams:
-    if i not in teams:
-        print("Error! " + i + " not in list")
-    else:
-        valid_teams.append(i)
-        
-teams_left = len(teams) - len(valid_teams)
-print("You have " + str(teams_left) + " teams left to chose from")
-
-
-''' Thoughts:
-Falcons over Bucs in ATL
-Texans over Bills in Houston
-Bears over Dolphins in MIA
-Rams over Broncos in Denver
-Packers over 49ers in GB
-'''
 
